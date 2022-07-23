@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:myride/mainScreens/mainScreen.dart';
+// import 'package:myride/mainScreens/mainScreen.dart';
+import 'package:myride/authentication/signup_screen.dart';
 
-void main()  {
+void main() {
   runApp(const MyApp());
 }
 
@@ -14,10 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Drivers App',
       theme: ThemeData(
-       
         primarySwatch: Colors.yellow,
       ),
-      home:  homeScreen(),
+      home: SignupScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
