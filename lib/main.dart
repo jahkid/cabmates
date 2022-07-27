@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:myride/authentication/login_screen.dart';
 // import 'package:myride/mainScreens/mainScreen.dart';
-import 'package:myride/authentication/signup_screen.dart';
+// import 'package:myride/authentication/signup_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.yellow,
       ),
-      home: SignupScreen(),
+      home: LoginScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
