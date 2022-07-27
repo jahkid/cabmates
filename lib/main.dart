@@ -1,9 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myride/authentication/login_screen.dart';
 // import 'package:myride/mainScreens/mainScreen.dart';
 // import 'package:myride/authentication/signup_screen.dart';
 
-void main() {
+Future<void> main() async {
+  await Firebase.initializeApp(
+    options: FirebaseOptions(
+      apiKey: "XXX", // Your apiKey
+      appId: "XXX", // Your appId
+      messagingSenderId: "XXX", // Your messagingSenderId
+      projectId: "XXX",
+     ) // Your projectId
+  );
   runApp(const MyApp());
 }
 
