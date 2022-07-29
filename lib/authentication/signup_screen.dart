@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myride/authentication/carInfo_screen.dart';
 import 'package:myride/authentication/login_screen.dart';
+import 'package:myride/widgets/progress_dialog.dart';
 
 class SignupScreen extends StatefulWidget {
   SignupScreen({Key? key}) : super(key: key);
@@ -27,6 +28,13 @@ class _SignupScreenState extends State<SignupScreen> {
       Fluttertoast.showToast(msg: 'phone number is required');
     } else if (passwordTextEditingController.text.length < 4) {
       Fluttertoast.showToast(msg: 'password must be at least 4 characters');
+    } else {
+      showDialog(
+          context: context,
+          builder: (BuildContext c) {
+            return ProgressDialog(message: 'Processin, Please wait',);
+          },
+          barrierDismissible: false);
     }
   }
 
