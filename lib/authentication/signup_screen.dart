@@ -1,4 +1,7 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myride/authentication/carInfo_screen.dart';
 import 'package:myride/authentication/login_screen.dart';
 
@@ -14,6 +17,18 @@ class _SignupScreenState extends State<SignupScreen> {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController phoneTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+
+  validateForm() {
+    if (nameTextEditingController.text.length < 3) {
+      Fluttertoast.showToast(msg: 'Name must be at least 3 characters');
+    } else if (!emailTextEditingController.text.contains('@')) {
+      Fluttertoast.showToast(msg: 'invalid email');
+    } else if (phoneTextEditingController.text.isEmpty) {
+      Fluttertoast.showToast(msg: 'phone number is required');
+    } else if (passwordTextEditingController.text.length < 4) {
+      Fluttertoast.showToast(msg: 'password must be at least 4 characters');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,8 +150,9 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (c) => CarInfoScreen()));
+                    validateForm();
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (c) => CarInfoScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.yellowAccent,
@@ -145,18 +161,18 @@ class _SignupScreenState extends State<SignupScreen> {
                     'Create Account',
                     style: TextStyle(color: Colors.black, fontSize: 10),
                   )),
-                  TextButton(
-              child: Text(
-                "Already have an account? Login Here",
-                style: TextStyle(
-                  color: Colors.black38,
+              TextButton(
+                child: Text(
+                  "Already have an account? Login Here",
+                  style: TextStyle(
+                    color: Colors.black38,
+                  ),
                 ),
-              ),
-              onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (c) => LoginScreen()));
-              },
-            )
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (c) => LoginScreen()));
+                },
+              )
             ],
           ),
         ),
