@@ -1,4 +1,9 @@
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:myride/authentication/login_screen.dart';
+import 'package:myride/global/global.dart';
+import 'package:myride/mainScreens/mainScreen.dart';
 
 class CarInfoScreen extends StatefulWidget {
   CarInfoScreen({Key? key}) : super(key: key);
@@ -14,6 +19,25 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
   TextEditingController carColorTextEditingController = TextEditingController();
   List<String> carTypeList = ['uber-x', 'uber-go', 'bike'];
   String? selectedCarType;
+
+  saveCarInfo() {
+    Map driverCarInfoMap = {
+      "car_color": carColorTextEditingController.text.trim(),
+      "car_number": carNumberTextEditingController.text.trim(),
+      "car_model": carModelTextEditingController.text.trim(),
+      "type": selectedCarType
+    };
+
+    DatabaseReference driversRef =
+        FirebaseDatabase.instance.ref().child("drivers");
+    driversRef
+        .child(currentFirebaseUser!.uid)
+        .child("car_details")
+        .set(driverCarInfoMap);
+    Fluttertoast.showToast(msg: "car information saved");
+    Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +128,9 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                       fontSize: 14,
                     )),
               ),
-              SizedBox(height: 10,),
+              SizedBox(
+                height: 10,
+              ),
               DropdownButton(
                 iconSize: 40,
                 dropdownColor: Colors.black,
@@ -133,14 +159,17 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                   );
                 }).toList(),
               ),
-            
-            SizedBox(
+              SizedBox(
                 height: 20,
               ),
               ElevatedButton(
                   onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (c) => CarInfoScreen()));
+                    if (carColorTextEditingController.text.isNotEmpty &&
+                        carNumberTextEditingController.text.isNotEmpty &&
+                        carModelTextEditingController.text.isNotEmpty &&
+                        selectedCarType != null) {
+                      saveCarInfo();
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.black,
@@ -149,7 +178,6 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                     'Save Details',
                     style: TextStyle(color: Colors.lime, fontSize: 10),
                   ))
-            
             ],
           ),
         ),
