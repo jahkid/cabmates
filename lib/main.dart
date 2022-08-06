@@ -5,14 +5,15 @@ import 'package:myride/authentication/login_screen.dart';
 // import 'package:myride/authentication/signup_screen.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-    options: FirebaseOptions(
-      apiKey: "XXX", // Your apiKey
-      appId: "XXX", // Your appId
-      messagingSenderId: "XXX", // Your messagingSenderId
-      projectId: "XXX",
-     ) // Your projectId
-  );
+      options: FirebaseOptions(
+    apiKey: "XXX", // Your apiKey
+    appId: "XXX", // Your appId
+    messagingSenderId: "XXX", // Your messagingSenderId
+    projectId: "XXX",
+  ) // Your projectId
+      );
   runApp(const MyApp());
 }
 
