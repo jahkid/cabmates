@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myride/authentication/login_screen.dart';
 import 'package:myride/global/global.dart';
-import 'package:myride/mainScreens/mainScreen.dart';
 
 class CarInfoScreen extends StatefulWidget {
   CarInfoScreen({Key? key}) : super(key: key);

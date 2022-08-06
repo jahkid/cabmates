@@ -45,15 +45,13 @@ class _SignupScreenState extends State<SignupScreen> {
           );
         },
         barrierDismissible: false);
-    final User? firebaseUser = (await fAuth
-            .createUserWithEmailAndPassword(
-                email: emailTextEditingController.text.trim(),
-                password: passwordTextEditingController.text.trim())
-            .catchError((msg) {
+    final User? firebaseUser = (
+      await fAuth.createUserWithEmailAndPassword(email: emailTextEditingController.text.trim(),password: passwordTextEditingController.text.trim()
+                ).catchError((msg) {
       Navigator.pop(context);
       Fluttertoast.showToast(msg: "Error" + msg.toString());
-    }))
-        .user;
+    })
+    ).user;
     if (firebaseUser != null) {
       Map driverMap = {
         "id": firebaseUser.uid,
@@ -89,7 +87,12 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
               Padding(
                 padding: EdgeInsets.all(20.0),
-                child: Image.asset('/app_logo.png',height: 100, width: 100, fit: BoxFit.fitWidth,),
+                child: Image.asset(
+                  '/app_logo.png',
+                  height: 100,
+                  width: 100,
+                  fit: BoxFit.fitWidth,
+                ),
               ),
               SizedBox(
                 height: 10,
@@ -196,8 +199,6 @@ class _SignupScreenState extends State<SignupScreen> {
               ElevatedButton(
                   onPressed: () {
                     validateForm();
-                    // Navigator.push(context,
-                    //     MaterialPageRoute(builder: (c) => CarInfoScreen()));
                   },
                   style: ElevatedButton.styleFrom(
                     primary: Colors.yellowAccent,
