@@ -1,8 +1,8 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:myride/authentication/login_screen.dart';
 import 'package:myride/global/global.dart';
+import 'package:myride/mainScreens/mainScreen.dart';
 
 class CarInfoScreen extends StatefulWidget {
   CarInfoScreen({Key? key}) : super(key: key);
@@ -34,7 +34,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
         .child("car_details")
         .set(driverCarInfoMap);
     Fluttertoast.showToast(msg: "car information saved");
-    Navigator.push(context, MaterialPageRoute(builder: (c) => LoginScreen()));
+    Navigator.push(context, MaterialPageRoute(builder: (c) => homeScreen()));
   }
 
   @override
