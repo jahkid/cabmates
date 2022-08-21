@@ -43,7 +43,12 @@ class _homeScreenState extends State<homeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Welcome to CabMates Driver App'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset('../../assets/app_logo.png', fit: BoxFit.contain, height: 75,)
+          ],
+        ),
       ),
       body: TabBarView(
         physics: NeverScrollableScrollPhysics(),
