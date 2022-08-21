@@ -13,5 +13,5 @@ class _EarningsTabState extends State<EarningsTab> {
    return Center(
       child: Text('Earnings page'),
     );
-  }
+   }
 }
