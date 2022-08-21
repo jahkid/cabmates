@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:myride/authentication/signup_screen.dart';
 // import 'package:myride/authentication/login_screen.dart';
 import 'package:myride/mainScreens/mainScreen.dart';
 // import 'package:myride/mainScreens/mainScreen.dart';
@@ -9,10 +10,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
       options: FirebaseOptions(
-    apiKey: "XXX ", // Your apiKey
-    appId: "XXX", // Your appId
-    messagingSenderId: "XXX", // Your messagingSenderId
-    projectId: "XXX",
+    apiKey: "AIzaSyCCaB7Y8wRxWJxAvGrcYyEsol0o4efaLNE", // Your apiKey
+    appId: "1:127287054783:android:83246f28f32d23fe65910a", // Your appId
+    messagingSenderId: "127287054783", // Your messagingSenderId
+    projectId: "cabmates-fcff2",
   ) // Your projectId
       );
   runApp(const MyApp());
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.yellow,
       ),
-      home: homeScreen(),
+      home: SignupScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
