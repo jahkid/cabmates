@@ -76,7 +76,7 @@ class _SignupScreenState extends State<SignupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lime[50],
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -88,7 +88,7 @@ class _SignupScreenState extends State<SignupScreen> {
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child: Image.asset(
-                  '/app_logo.png',
+                  '/assets/app_logo.png',
                   height: 100,
                   width: 100,
                   fit: BoxFit.fitWidth,
@@ -201,7 +201,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     validateForm();
                   },
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.yellowAccent,
+                    primary: Color.fromARGB(255, 248, 248, 101),
                   ),
                   child: Text(
                     'Create Account',

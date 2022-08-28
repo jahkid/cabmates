@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myride/authentication/signup_screen.dart';
 // import 'package:myride/authentication/login_screen.dart';
-import 'package:myride/mainScreens/mainScreen.dart';
 // import 'package:myride/mainScreens/mainScreen.dart';
 // import 'package:myride/authentication/signup_screen.dart';
 
@@ -30,7 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.yellow,
       ),
-      home: homeScreen(),
+      home: SignupScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
