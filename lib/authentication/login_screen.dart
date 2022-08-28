@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myride/authentication/signup_screen.dart';
@@ -45,6 +46,22 @@ class _LoginScreenState extends State<LoginScreen> {
     }))
         .user;
     if (firebaseUser != null) {
+      DatabaseReference driversRef =
+          FirebaseDatabase.instance.ref().child("drivers");
+      driversRef.child(firebaseUser.uid).once().then((driverKey) {
+        final snap = driverKey.snapshot;
+        if (snap.value != null) {
+          currentFirebaseUser = firebaseUser;
+          Fluttertoast.showToast(msg: "Login Successful");
+          Navigator.push(
+              context, MaterialPageRoute(builder: (c) => homeScreen()));
+        } else {
+          Fluttertoast.showToast(msg: "No record exists for this user");
+          fAuth.signOut();
+           Navigator.push(
+              context, MaterialPageRoute(builder: (c) => LoginScreen()));
+        }
+      });
       currentFirebaseUser = firebaseUser;
       Fluttertoast.showToast(msg: "Login Successful");
       Navigator.push(context, MaterialPageRoute(builder: (c) => homeScreen()));
@@ -57,7 +74,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lime[50],
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
           child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -69,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
                 padding: EdgeInsets.all(20.0),
                 child: Image.asset(
-                  '/app_logo.png',
+                  '/assets/app_logo.png',
                   height: 100,
                   width: 100,
                   fit: BoxFit.fitWidth,
