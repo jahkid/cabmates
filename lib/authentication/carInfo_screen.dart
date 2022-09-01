@@ -40,7 +40,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color.fromARGB(255, 234, 232, 232),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -51,7 +51,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
               ),
               Padding(
                 padding: EdgeInsets.all(20.0),
-                child: Image.asset('/app_logo.png'),
+                child: Image.asset('assets/app_logo.png'),
               ),
               SizedBox(
                 height: 10,
@@ -132,12 +132,12 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
               ),
               DropdownButton(
                 iconSize: 40,
-                dropdownColor: Colors.black,
+                dropdownColor: Colors.lime[50],
                 hint: Text(
                   'Please Select Your Vehicle Type',
                   style: TextStyle(
                     fontSize: 14.0,
-                    color: Colors.grey,
+                    color: Color.fromARGB(255, 65, 64, 64),
                   ),
                 ),
                 value: selectedCarType,
@@ -151,7 +151,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                     child: Text(
                       car,
                       style: TextStyle(
-                        color: Colors.yellow,
+                        color: Colors.black,
                       ),
                     ),
                     value: car,
@@ -170,9 +170,17 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                       saveCarInfo();
                     }
                   },
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                  ),
+                  style: ButtonStyle(
+                          minimumSize: MaterialStateProperty.all(Size(60, 60)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.yellow),
+                          shape:
+                              MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ))),
+                  // style: ElevatedButton.styleFrom(
+                  //   primary: Colors.black,
+                  // ),
                   child: Text(
                     'Save Details',
                     style: TextStyle(color: Colors.lime, fontSize: 10),

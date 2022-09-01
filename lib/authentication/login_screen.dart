@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Padding(
                 padding: EdgeInsets.all(20.0),
                 child: Image.asset(
-                  '/assets/app_logo.png',
+                  'assets/app_logo.png',
                   height: 100,
                   width: 100,
                   fit: BoxFit.fitWidth,
@@ -151,14 +151,22 @@ class _LoginScreenState extends State<LoginScreen> {
               height: 20,
             ),
             ElevatedButton(
+               style: ButtonStyle(
+                          minimumSize: MaterialStateProperty.all(Size(30, 60)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.yellow),
+                          shape:
+                              MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ))),
                 onPressed: () {
                   validateForm();
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.yellowAccent,
-                ),
+                // style: ElevatedButton.styleFrom(
+                //   primary: Colors.yellowAccent,
+                // ),
                 child: Text(
-                  'Login',
+                  '   Login   ',
                   style: TextStyle(color: Colors.black, fontSize: 10),
                 )),
             TextButton(

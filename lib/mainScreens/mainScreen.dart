@@ -46,7 +46,7 @@ class _homeScreenState extends State<homeScreen>
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('../../assets/app_logo.png', fit: BoxFit.contain, height: 75,)
+            Image.asset('assets/app_logo.png', fit: BoxFit.contain, height: 75,)
           ],
         ),
       ),
