@@ -88,7 +88,7 @@ class _SignupScreenState extends State<SignupScreen> {
               Padding(
                 padding: EdgeInsets.all(20.0),
                 child: Image.asset(
-                  '/assets/app_logo.png',
+                  'assets/app_logo.png',
                   height: 100,
                   width: 100,
                   fit: BoxFit.fitWidth,
@@ -200,9 +200,17 @@ class _SignupScreenState extends State<SignupScreen> {
                   onPressed: () {
                     validateForm();
                   },
-                  style: ElevatedButton.styleFrom(
-                    primary: Color.fromARGB(255, 248, 248, 101),
-                  ),
+                   style: ButtonStyle(
+                          minimumSize: MaterialStateProperty.all(Size(60, 60)),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.yellow),
+                          shape:
+                              MaterialStateProperty.all(RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ))),
+                  // style: ElevatedButton.styleFrom(
+                  //   primary: Color.fromARGB(255, 248, 248, 101),
+                  // ),
                   child: Text(
                     'Create Account',
                     style: TextStyle(color: Colors.black, fontSize: 10),
