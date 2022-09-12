@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:myride/authentication/login_screen.dart';
 import 'package:myride/global/global.dart';
-import 'package:myride/mainScreens/onBoard.dart';
 
 class ProfileTab extends StatefulWidget {
   ProfileTab({Key? key}) : super(key: key);
@@ -18,7 +18,7 @@ class _ProfileTabState extends State<ProfileTab> {
         onPressed: () {
           fAuth.signOut();
           Navigator.push(
-              context, MaterialPageRoute(builder: (c) => onBoardScreen()));
+              context, MaterialPageRoute(builder: (c) => LoginScreen()));
         },
       ),
     );

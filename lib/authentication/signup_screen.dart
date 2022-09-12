@@ -3,6 +3,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fadein/flutter_fadein.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:myride/authentication/carInfo_screen.dart';
 import 'package:myride/authentication/login_screen.dart';
@@ -41,7 +42,7 @@ class _SignupScreenState extends State<SignupScreen> {
         context: context,
         builder: (BuildContext c) {
           return ProgressDialog(
-            message: 'Processin, Please wait',
+            message: 'Processing, Please wait',
           );
         },
         barrierDismissible: false);
@@ -75,162 +76,330 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:Color.fromARGB(255, 50, 49, 49),
+      // backgroundColor: Color.fromARGB(255, 214, 212, 212),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
+        child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+           
             children: [
-              SizedBox(
-                height: 10,
+              SizedBox(height:100),
+              FadeIn(
+                child: Image.asset("assets/app_logo.png",
+              fit:BoxFit.contain ,
+              width: 100,
+              height: 100,
               ),
-              Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Image.asset(
-                  'assets/app_logo.png',
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.fitWidth,
-                ),
+              duration: Duration(milliseconds: 3000),
+              curve: Curves.bounceIn,
               ),
-              SizedBox(
-                height: 10,
-              ),
+              SizedBox(height: 30,),
               Text(
-                'Register as a driver',
+                "Welcome To Cabmates",
                 style: TextStyle(
-                  fontSize: 26,
-                  color: Colors.black,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
+                  fontSize: 24,
                 ),
               ),
-              TextField(
-                controller: nameTextEditingController,
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                    labelText: 'Name',
-                    hintText: 'Name',
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.yellow),
-                    ),
-                    hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 77, 76, 76),
-                      fontSize: 10,
-                    ),
-                    labelStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                    )),
+              SizedBox(height: 10,),
+              Text(
+                "Get Started As a Driver",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
               ),
-              TextField(
-                controller: emailTextEditingController,
-                keyboardType: TextInputType.emailAddress,
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                    labelText: 'Email',
-                    hintText: 'Email',
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+              SizedBox(height: 20,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Container(
+                  decoration:BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.lime),
+                    borderRadius: BorderRadius.circular(12)
+                  ) ,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: TextField(
+                    controller: nameTextEditingController,
+                    keyboardType: TextInputType.emailAddress,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Name",
+                      
                     ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.yellow),
                     ),
-                    hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 77, 76, 76),
-                      fontSize: 10,
-                    ),
-                    labelStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                    )),
-              ),
-              TextField(
-                controller: phoneTextEditingController,
-                keyboardType: TextInputType.phone,
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                    labelText: 'Phone Number',
-                    hintText: 'Phone Number',
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.yellow),
-                    ),
-                    hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 77, 76, 76),
-                      fontSize: 10,
-                    ),
-                    labelStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                    )),
-              ),
-              TextField(
-                controller: passwordTextEditingController,
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                style: TextStyle(color: Colors.black),
-                decoration: InputDecoration(
-                    labelText: 'Password',
-                    hintText: 'Password',
-                    enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
-                    ),
-                    focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.yellow),
-                    ),
-                    hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 77, 76, 76),
-                      fontSize: 10,
-                    ),
-                    labelStyle: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                    )),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    validateForm();
-                  },
-                   style: ButtonStyle(
-                          minimumSize: MaterialStateProperty.all(Size(60, 60)),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.yellow),
-                          shape:
-                              MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ))),
-                  // style: ElevatedButton.styleFrom(
-                  //   primary: Color.fromARGB(255, 248, 248, 101),
-                  // ),
-                  child: Text(
-                    'Create Account',
-                    style: TextStyle(color: Colors.black, fontSize: 10),
-                  )),
-              TextButton(
-                child: Text(
-                  "Already have an account? Login Here",
-                  style: TextStyle(
-                    color: Colors.black38,
                   ),
                 ),
+              ),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Container(
+                  decoration:BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.lime),
+                    borderRadius: BorderRadius.circular(12)
+                  ) ,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: TextField(
+                    controller: emailTextEditingController,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Email",
+                      
+                    ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Container(
+                  decoration:BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.lime),
+                    borderRadius: BorderRadius.circular(12)
+                  ) ,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: TextField(
+                    controller: phoneTextEditingController,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Phone No",
+                      
+                    ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 10,),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Container(
+                  decoration:BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(color: Colors.lime),
+                    borderRadius: BorderRadius.circular(12)
+                  ) ,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 15),
+                    child: TextField(
+                    controller: passwordTextEditingController,
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    style: TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: "Password",
+                      
+                    ),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20,),
+              ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (c) => LoginScreen()));
+                  validateForm();
                 },
-              )
+                style: ElevatedButton.styleFrom(
+                  primary:Color.fromARGB(255, 255, 226, 5),
+                  fixedSize: Size(200, 50),
+
+                
+                ),
+                child: Text(
+                  'Register',
+                  style: TextStyle(color: Colors.black, fontSize: 10),
+                )),
+            TextButton(
+              child: Text(
+                "Already have an account? Login Here",
+                style: TextStyle(
+                  color: Colors.blueGrey,
+                ),
+              ),
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (c) => LoginScreen()));
+              },
+            ),
+
+              SizedBox(height: 15,),
+
             ],
           ),
         ),
       ),
+    // return Scaffold(
+    //   backgroundColor: Colors.white,
+    //   body: SingleChildScrollView(
+    //     child: Padding(
+    //       padding: const EdgeInsets.all(16.0),
+    //       child: Column(
+    //         children: [
+    //           SizedBox(
+    //             height: 10,
+    //           ),
+    //           Padding(
+    //             padding: EdgeInsets.all(20.0),
+    //             child: Image.asset(
+    //               'assets/app_logo.png',
+    //               height: 100,
+    //               width: 100,
+    //               fit: BoxFit.fitWidth,
+    //             ),
+    //           ),
+    //           SizedBox(
+    //             height: 10,
+    //           ),
+    //           Text(
+    //             'Register as a driver',
+    //             style: TextStyle(
+    //               fontSize: 26,
+    //               color: Colors.black,
+    //               fontWeight: FontWeight.bold,
+    //             ),
+    //           ),
+    //           TextField(
+    //             controller: nameTextEditingController,
+    //             style: TextStyle(color: Colors.black),
+    //             decoration: InputDecoration(
+    //                 labelText: 'Name',
+    //                 hintText: 'Name',
+    //                 enabledBorder: UnderlineInputBorder(
+    //                   borderSide: BorderSide(color: Colors.black),
+    //                 ),
+    //                 focusedBorder: UnderlineInputBorder(
+    //                   borderSide: BorderSide(color: Colors.yellow),
+    //                 ),
+    //                 hintStyle: TextStyle(
+    //                   color: Color.fromARGB(255, 77, 76, 76),
+    //                   fontSize: 10,
+    //                 ),
+    //                 labelStyle: TextStyle(
+    //                   color: Colors.grey,
+    //                   fontSize: 14,
+    //                 )),
+    //           ),
+    //           TextField(
+    //             controller: emailTextEditingController,
+    //             keyboardType: TextInputType.emailAddress,
+    //             style: TextStyle(color: Colors.black),
+    //             decoration: InputDecoration(
+    //                 labelText: 'Email',
+    //                 hintText: 'Email',
+    //                 enabledBorder: UnderlineInputBorder(
+    //                   borderSide: BorderSide(color: Colors.black),
+    //                 ),
+    //                 focusedBorder: UnderlineInputBorder(
+    //                   borderSide: BorderSide(color: Colors.yellow),
+    //                 ),
+    //                 hintStyle: TextStyle(
+    //                   color: Color.fromARGB(255, 77, 76, 76),
+    //                   fontSize: 10,
+    //                 ),
+    //                 labelStyle: TextStyle(
+    //                   color: Colors.grey,
+    //                   fontSize: 14,
+    //                 )),
+    //           ),
+    //           TextField(
+    //             controller: phoneTextEditingController,
+    //             keyboardType: TextInputType.phone,
+    //             style: TextStyle(color: Colors.black),
+    //             decoration: InputDecoration(
+    //                 labelText: 'Phone Number',
+    //                 hintText: 'Phone Number',
+    //                 enabledBorder: UnderlineInputBorder(
+    //                   borderSide: BorderSide(color: Colors.black),
+    //                 ),
+    //                 focusedBorder: UnderlineInputBorder(
+    //                   borderSide: BorderSide(color: Colors.yellow),
+    //                 ),
+    //                 hintStyle: TextStyle(
+    //                   color: Color.fromARGB(255, 77, 76, 76),
+    //                   fontSize: 10,
+    //                 ),
+    //                 labelStyle: TextStyle(
+    //                   color: Colors.grey,
+    //                   fontSize: 14,
+    //                 )),
+    //           ),
+    //           TextField(
+    //             controller: passwordTextEditingController,
+    //             keyboardType: TextInputType.text,
+    //             obscureText: true,
+    //             style: TextStyle(color: Colors.black),
+    //             decoration: InputDecoration(
+    //                 labelText: 'Password',
+    //                 hintText: 'Password',
+    //                 enabledBorder: UnderlineInputBorder(
+    //                   borderSide: BorderSide(color: Colors.black),
+    //                 ),
+    //                 focusedBorder: UnderlineInputBorder(
+    //                   borderSide: BorderSide(color: Colors.yellow),
+    //                 ),
+    //                 hintStyle: TextStyle(
+    //                   color: Color.fromARGB(255, 77, 76, 76),
+    //                   fontSize: 10,
+    //                 ),
+    //                 labelStyle: TextStyle(
+    //                   color: Colors.grey,
+    //                   fontSize: 14,
+    //                 )),
+    //           ),
+    //           SizedBox(
+    //             height: 20,
+    //           ),
+    //           ElevatedButton(
+    //               onPressed: () {
+    //                 validateForm();
+    //               },
+    //                style: ButtonStyle(
+    //                       minimumSize: MaterialStateProperty.all(Size(60, 60)),
+    //                       backgroundColor:
+    //                           MaterialStateProperty.all(Colors.yellow),
+    //                       shape:
+    //                           MaterialStateProperty.all(RoundedRectangleBorder(
+    //                         borderRadius: BorderRadius.circular(50),
+    //                       ))),
+    //               // style: ElevatedButton.styleFrom(
+    //               //   primary: Color.fromARGB(255, 248, 248, 101),
+    //               // ),
+    //               child: Text(
+    //                 'Create Account',
+    //                 style: TextStyle(color: Colors.black, fontSize: 10),
+    //               )),
+    //           TextButton(
+    //             child: Text(
+    //               "Already have an account? Login Here",
+    //               style: TextStyle(
+    //                 color: Colors.black38,
+    //               ),
+    //             ),
+    //             onPressed: () {
+    //               Navigator.push(context,
+    //                   MaterialPageRoute(builder: (c) => LoginScreen()));
+    //             },
+    //           )
+    //         ],
+    //       ),
+    //     ),
+    //   ),
     );
   }
 }

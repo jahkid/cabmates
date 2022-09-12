@@ -40,7 +40,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 234, 232, 232),
+      backgroundColor:Color.fromARGB(255, 50, 49, 49),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(24.0),
@@ -51,93 +51,99 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
               ),
               Padding(
                 padding: EdgeInsets.all(20.0),
-                child: Image.asset('assets/app_logo.png'),
+                child: Image.asset('assets/app_logo.png',
+                fit:BoxFit.contain ,
+                width: 100,
+                height: 100,
+                ),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
-                'Vehicle Details',
+                ' Enter Your Vehicle Details',
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 26,
-                  color: Colors.black,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                 ),
               ),
+              SizedBox(height: 40,),
               TextField(
                 controller: carModelTextEditingController,
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     labelText: 'Car Model',
                     hintText: 'Car Model',
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: BorderSide(color:  Color.fromARGB(255, 210, 208, 208)),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.yellow),
                     ),
                     hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 77, 76, 76),
+                      color: Color.fromARGB(255, 210, 208, 208),
                       fontSize: 10,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.grey,
+                      color:  Color.fromARGB(255, 210, 208, 208),
                       fontSize: 14,
                     )),
               ),
               TextField(
                 controller: carNumberTextEditingController,
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     labelText: 'Car Number',
                     hintText: 'Car Number',
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: BorderSide(color:  Color.fromARGB(255, 210, 208, 208)),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.yellow),
                     ),
                     hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 77, 76, 76),
+                      color:  Color.fromARGB(255, 210, 208, 208),
                       fontSize: 10,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.grey,
+                      color: Color.fromARGB(255, 210, 208, 208),
                       fontSize: 14,
                     )),
               ),
               TextField(
                 controller: carColorTextEditingController,
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
                 decoration: InputDecoration(
                     labelText: 'Car Color',
                     hintText: 'Car Color',
                     enabledBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.black),
+                      borderSide: BorderSide(color: Color.fromARGB(255, 210, 208, 208)),
                     ),
                     focusedBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.yellow),
                     ),
                     hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 77, 76, 76),
+                      color: Color.fromARGB(255, 210, 208, 208),
                       fontSize: 10,
                     ),
                     labelStyle: TextStyle(
-                      color: Colors.grey,
+                      color:  Color.fromARGB(255, 210, 208, 208),
                       fontSize: 14,
                     )),
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               DropdownButton(
                 iconSize: 40,
-                dropdownColor: Colors.lime[50],
+                dropdownColor:  Color.fromARGB(255, 240, 234, 234),
                 hint: Text(
                   'Please Select Your Vehicle Type',
                   style: TextStyle(
                     fontSize: 14.0,
-                    color: Color.fromARGB(255, 65, 64, 64),
+                    color: Color.fromARGB(255, 240, 234, 234),
                   ),
                 ),
                 value: selectedCarType,
@@ -151,7 +157,7 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                     child: Text(
                       car,
                       style: TextStyle(
-                        color: Colors.black,
+                        color:   Color.fromARGB(255, 240, 234, 234),
                       ),
                     ),
                     value: car,
@@ -170,20 +176,16 @@ class _CarInfoScreenState extends State<CarInfoScreen> {
                       saveCarInfo();
                     }
                   },
-                  style: ButtonStyle(
-                          minimumSize: MaterialStateProperty.all(Size(60, 60)),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.yellow),
-                          shape:
-                              MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ))),
+                  style: ElevatedButton.styleFrom(
+                  primary:Color.fromARGB(255, 234, 249, 106),
+                  fixedSize: Size(200, 50),
+                  ),
                   // style: ElevatedButton.styleFrom(
                   //   primary: Colors.black,
                   // ),
                   child: Text(
                     'Save Details',
-                    style: TextStyle(color: Colors.lime, fontSize: 10),
+                    style: TextStyle(color: Colors.black, fontSize: 10),
                   ))
             ],
           ),

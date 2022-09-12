@@ -76,7 +76,7 @@ class _homeScreenState extends State<homeScreen>
         ],
         unselectedItemColor: Colors.white54,
         selectedItemColor: Colors.yellow,
-        backgroundColor: Colors.black,
+        backgroundColor: Color.fromARGB(255, 104, 103, 103),
         type: BottomNavigationBarType.fixed,
         selectedLabelStyle: TextStyle(fontSize: 14),
         showUnselectedLabels: true,
