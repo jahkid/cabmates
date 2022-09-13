@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "456593009978",
-    "firebase_url": "https://cabmates-a0fb1-default-rtdb.firebaseio.com",
-    "project_id": "cabmates-a0fb1",
-    "storage_bucket": "cabmates-a0fb1.appspot.com"
+    "project_number": "397719268048",
+    "firebase_url": "https://cabmates-11b84-default-rtdb.firebaseio.com",
+    "project_id": "cabmates-11b84",
+    "storage_bucket": "cabmates-11b84.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:456593009978:android:ca5dba40f5bfcec577b403",
+        "mobilesdk_app_id": "1:397719268048:android:424dec8f06ff32784a4cd5",
         "android_client_info": {
           "package_name": "com.driversapp.cabmates"
         }
       },
       "oauth_client": [
         {
-          "client_id": "456593009978-mc69jp3cq30b5fqf7j0ihv60mfchm51k.apps.googleusercontent.com",
+          "client_id": "397719268048-o2g8uir2r1lat163hpiaaftcl2bm5dsc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAOk3thnDZGf5ZBDO-LPG-NI8UeCO7or3A"
+          "current_key": "AIzaSyCujzh5BwyPRXjnrLD4USnZzXSGdNbOfFs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "456593009978-mc69jp3cq30b5fqf7j0ihv60mfchm51k.apps.googleusercontent.com",
+              "client_id": "397719268048-o2g8uir2r1lat163hpiaaftcl2bm5dsc.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

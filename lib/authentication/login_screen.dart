@@ -80,15 +80,15 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(220, 0, 0, 0),
-          automaticallyImplyLeading: false,
-          title: Padding(
-            padding: const EdgeInsets.all(90),
-            child: Image.asset("assets/app_logo.png",
-                height: 30, fit: BoxFit.cover),
-          ),
-        ),
+        // appBar: AppBar(
+        //   backgroundColor:  Color.fromARGB(255, 218, 167, 0),
+        //   automaticallyImplyLeading: true,
+        //   title: Padding(
+        //     padding: const EdgeInsets.all(400),
+        //     child: Image.asset("assets/app_logo.png",
+        //         height: 30, fit: BoxFit.cover),
+        //   ),
+        // ),
         body: Container(
           height: double.infinity,
           width: double.infinity,
@@ -96,18 +96,32 @@ class _LoginScreenState extends State<LoginScreen> {
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
             Color.fromARGB(255, 218, 167, 0),
-            Color.fromARGB(255, 222, 198, 94)
+            Color.fromARGB(255, 218, 168, 4)
           ])),
           child: SingleChildScrollView(
             child: Column(
               children: [
+                Image.asset("assets/app_logo.png",
+                    height: 60, fit: BoxFit.cover),
+
+                SizedBox(
+                  height: 20,
+                ),
+
+                Text(
+                  "WELCOME BACK",
+                  style: TextStyle(
+                      fontSize: 26,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w900),
+                ),
                 SizedBox(
                   height: 50,
                 ),
                 Text(
                   "Login To Your Account",
                   style: TextStyle(
-                    fontSize: 26,
+                    fontSize: 14,
                     color: Color.fromARGB(184, 9, 9, 9),
                     fontWeight: FontWeight.bold,
                   ),
