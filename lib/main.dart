@@ -1,39 +1,57 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, use_key_in_widget_constructors, library_private_types_in_public_api
+
+import 'package:myride/splashScreen/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:myride/authentication/signup_screen.dart';
 
-// import 'package:myride/authentication/login_screen.dart';
-// import 'package:myride/mainScreens/mainScreen.dart';
-// import 'package:myride/authentication/signup_screen.dart';
-
-Future<void> main() async {
+//The main function is the starting point for all flutter apps.
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-      options: FirebaseOptions(
-    apiKey: "AIzaSyAOk3thnDZGf5ZBDO-LPG-NI8UeCO7or3A", // Your apiKey
-    appId: "1:456593009978:android:ca5dba40f5bfcec577b403", // Your appId
-    messagingSenderId: "456593009978", // Your messagingSenderId
-    projectId: "cabmates-a0fb1",
-    // databaseURL: "https://cabmates-a0fb1-default-rtdb.firebaseio.com/"
-  ) // Your projectId
-      );
-  runApp(const MyApp());
+  await Firebase.initializeApp();
+  runApp(
+    MyApp(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'deeleva',
+        home: const MySplashScreen(),
+      ),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  final Widget? child;
 
-  // This widget is the root of your application.
+  MyApp({this.child});
+
+  static void restartApp(BuildContext context) {
+    context.findAncestorStateOfType<_MyAppState>()!.restartApp();
+  }
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Key key = UniqueKey();
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Drivers App',
-      theme: ThemeData(
-        primarySwatch: Colors.yellow
-      ),
-      home: SignupScreen(),
-      debugShowCheckedModeBanner: false,
+    return KeyedSubtree(
+      key: key,
+      child: widget.child!,
     );
   }
 }
 
+// const MyApp({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return;
+//   }
