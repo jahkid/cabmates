@@ -1,27 +1,29 @@
+// ignore_for_file: library_private_types_in_public_api, use_key_in_widget_constructors, prefer_const_constructors, prefer_const_literals_to_create_immutables, use_build_context_synchronously
+
+import 'package:myride/authentication/signup_screen.dart';
+import 'package:myride/splashScreen/splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:myride/authentication/signup_screen.dart';
-import 'package:myride/global/global.dart';
-import 'package:myride/mainScreens/mainScreen.dart';
-import 'package:myride/widgets/progress_dialog.dart';
+
+import '../global/global.dart';
+import '../widgets/progress_dialog.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
-
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+
   validateForm() {
-    if (!emailTextEditingController.text.contains('@')) {
-      Fluttertoast.showToast(msg: 'invalid email');
+    if (!emailTextEditingController.text.contains("@")) {
+      Fluttertoast.showToast(msg: "Email is not valid.");
     } else if (passwordTextEditingController.text.isEmpty) {
-      Fluttertoast.showToast(msg: 'password must be at least 4 characters');
+      Fluttertoast.showToast(msg: "Password is required");
     } else {
       loginDriverNow();
     }
@@ -30,21 +32,23 @@ class _LoginScreenState extends State<LoginScreen> {
   loginDriverNow() async {
     showDialog(
         context: context,
+        barrierDismissible: false,
         builder: (BuildContext c) {
-          return ProgressDialog(
-            message: 'Processin, Please wait',
-          );
-        },
-        barrierDismissible: false);
+          return ProgressDialog(message: "Signing in, Please wait...");
+        });
+
     final User? firebaseUser = (await fAuth
             .signInWithEmailAndPassword(
-                email: emailTextEditingController.text.trim(),
-                password: passwordTextEditingController.text.trim())
+      email: emailTextEditingController.text.trim(),
+      password: passwordTextEditingController.text.trim(),
+    )
             .catchError((msg) {
       Navigator.pop(context);
-      Fluttertoast.showToast(msg: "Error" + msg.toString());
+      // ignore: prefer_interpolation_to_compose_strings
+      Fluttertoast.showToast(msg: "Error: " + msg.toString());
     }))
         .user;
+
     if (firebaseUser != null) {
       DatabaseReference driversRef =
           FirebaseDatabase.instance.ref().child("drivers");
@@ -52,138 +56,236 @@ class _LoginScreenState extends State<LoginScreen> {
         final snap = driverKey.snapshot;
         if (snap.value != null) {
           currentFirebaseUser = firebaseUser;
-          Fluttertoast.showToast(msg: "Login Successful");
-          Navigator.push(
-              context, MaterialPageRoute(builder: (c) => homeScreen()));
+          Fluttertoast.showToast(msg: "Login Successful.");
+          Navigator.push(context,
+              MaterialPageRoute(builder: (c) => const MySplashScreen()));
         } else {
-          Fluttertoast.showToast(msg: "No record exists for this user");
+          Fluttertoast.showToast(msg: "No record exist with this email.");
           fAuth.signOut();
-           Navigator.push(
-              context, MaterialPageRoute(builder: (c) => LoginScreen()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (c) => const MySplashScreen()));
         }
       });
-      currentFirebaseUser = firebaseUser;
-      Fluttertoast.showToast(msg: "Login Successful");
-      Navigator.push(context, MaterialPageRoute(builder: (c) => homeScreen()));
     } else {
       Navigator.pop(context);
-      Fluttertoast.showToast(msg: "Error occured during login");
+      Fluttertoast.showToast(
+          msg:
+              "Error! Login is Unsuccessful. Please Login with correct details");
     }
   }
 
+  bool isPasswordVisible = false;
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
-          child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 30,
-            ),
-            Padding(
-                padding: EdgeInsets.all(20.0),
-                child: Image.asset(
-                  'assets/app_logo.png',
-                  height: 100,
-                  width: 100,
-                  fit: BoxFit.fitWidth,
-                )),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Login as a Driver',
-              style: TextStyle(
-                fontSize: 26,
-                color: Colors.black,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            TextField(
-              controller: emailTextEditingController,
-              keyboardType: TextInputType.emailAddress,
-              style: TextStyle(color: Colors.black),
-              decoration: InputDecoration(
-                  labelText: 'Email',
-                  hintText: 'Email',
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.yellow),
-                  ),
-                  hintStyle: TextStyle(
-                    color: Color.fromARGB(255, 77, 76, 76),
-                    fontSize: 10,
-                  ),
-                  labelStyle: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                  )),
-            ),
-            TextField(
-              controller: passwordTextEditingController,
-              keyboardType: TextInputType.text,
-              obscureText: true,
-              style: TextStyle(color: Colors.black),
-              decoration: InputDecoration(
-                  labelText: 'Password',
-                  hintText: 'Password',
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.yellow),
-                  ),
-                  hintStyle: TextStyle(
-                    color: Color.fromARGB(255, 77, 76, 76),
-                    fontSize: 10,
-                  ),
-                  labelStyle: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                  )),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            ElevatedButton(
-               style: ButtonStyle(
-                          minimumSize: MaterialStateProperty.all(Size(30, 60)),
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.yellow),
-                          shape:
-                              MaterialStateProperty.all(RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50),
-                          ))),
-                onPressed: () {
-                  validateForm();
-                },
-                // style: ElevatedButton.styleFrom(
-                //   primary: Colors.yellowAccent,
-                // ),
-                child: Text(
-                  '   Login   ',
-                  style: TextStyle(color: Colors.black, fontSize: 10),
-                )),
-            TextButton(
-              child: Text(
-                "Don't have an account? Register Here",
-                style: TextStyle(
-                  color: Colors.black38,
-                ),
-              ),
-              onPressed: () {
-                Navigator.push(
-                    context, MaterialPageRoute(builder: (c) => SignupScreen()));
-              },
-            )
-          ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(220, 0, 0, 0),
+          automaticallyImplyLeading: false,
+          title: Padding(
+            padding: const EdgeInsets.all(90),
+            child: Image.asset("assets/app_logo.png",
+                height: 30, fit: BoxFit.cover),
+          ),
         ),
-      )),
+        body: Container(
+          height: double.infinity,
+          width: double.infinity,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+            Color.fromARGB(255, 218, 167, 0),
+            Color.fromARGB(255, 222, 198, 94)
+          ])),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                Text(
+                  "Login To Your Account",
+                  style: TextStyle(
+                    fontSize: 26,
+                    color: Color.fromARGB(184, 9, 9, 9),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  "Enter Email and Password to login.",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Color.fromARGB(114, 9, 9, 9),
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 10),
+                  child: TextField(
+                    controller: emailTextEditingController,
+                    keyboardType: TextInputType.emailAddress,
+                    style: TextStyle(color: Colors.white, fontSize: 14.5),
+                    decoration: InputDecoration(
+                        prefixIconConstraints: BoxConstraints(minWidth: 45),
+                        prefixIcon: Icon(
+                          Icons.email,
+                          color: Colors.white,
+                          size: 22,
+                        ),
+                        border: InputBorder.none,
+                        hintText: 'Email',
+                        hintStyle:
+                            TextStyle(color: Colors.white, fontSize: 14.5),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100)
+                                .copyWith(bottomRight: Radius.circular(0)),
+                            borderSide: BorderSide(color: Colors.white70)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100)
+                                .copyWith(bottomRight: Radius.circular(0)),
+                            borderSide: BorderSide(color: Colors.white))),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30).copyWith(bottom: 10),
+                  child: TextField(
+                    controller: passwordTextEditingController,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(color: Colors.white, fontSize: 14.5),
+                    obscureText: isPasswordVisible ? false : true,
+                    decoration: InputDecoration(
+                        prefixIconConstraints: BoxConstraints(minWidth: 45),
+                        prefixIcon: Icon(
+                          Icons.lock,
+                          color: Colors.white,
+                          size: 22,
+                        ),
+                        suffixIconConstraints:
+                            BoxConstraints(minWidth: 45, maxWidth: 46),
+                        suffixIcon: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isPasswordVisible = !isPasswordVisible;
+                            });
+                          },
+                          child: Icon(
+                            isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            color: Colors.white70,
+                            size: 22,
+                          ),
+                        ),
+                        border: InputBorder.none,
+                        hintText: 'Password',
+                        hintStyle:
+                            TextStyle(color: Colors.white, fontSize: 14.5),
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100)
+                                .copyWith(bottomRight: Radius.circular(0)),
+                            borderSide: BorderSide(color: Colors.white70)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(100)
+                                .copyWith(bottomRight: Radius.circular(0)),
+                            borderSide: BorderSide(color: Colors.white))),
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    validateForm();
+                  },
+                  child: Container(
+                    height: 53,
+                    width: double.infinity,
+                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 4,
+                            color: Colors.black12.withOpacity(.2),
+                            offset: Offset(2, 2))
+                      ],
+                      borderRadius: BorderRadius.circular(100)
+                          .copyWith(bottomRight: Radius.circular(0)),
+                      gradient: LinearGradient(colors: [
+                        Color.fromARGB(255, 17, 16, 5),
+                        Color.fromARGB(255, 79, 79, 22)
+                      ]),
+                    ),
+                    child: Text('Login',
+                        style: TextStyle(
+                            color: Colors.white.withOpacity(.8),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold)),
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Text("Don't have an account?",
+                    style: TextStyle(color: Colors.black, fontSize: 16)),
+                SizedBox(
+                  height: 5,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (c) => SignUpScreen()));
+                  },
+                  child: Container(
+                    height: 53,
+                    width: double.infinity,
+                    margin: EdgeInsets.symmetric(horizontal: 30),
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0x994A4008)),
+                      borderRadius: BorderRadius.circular(100)
+                          .copyWith(bottomRight: Radius.circular(0)),
+                    ),
+                    child: Text(
+                      'Sign Up',
+                      style: TextStyle(
+                          color: Color(0xFF0E0B02).withOpacity(.8),
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
+
+
+//  Container(
+//                   height: 53,
+//                   width: double.infinity,
+//                   margin: EdgeInsets.symmetric(horizontal: 30),
+//                   alignment: Alignment.center,
+//                   decoration: BoxDecoration(
+//                     border: Border.all(color: Color(0x994A4008)),
+//                     borderRadius: BorderRadius.circular(100)
+//                         .copyWith(bottomRight: Radius.circular(0)),
+//                   ),
+//                   child: Text('SignUp',
+//                       style: TextStyle(
+//                           color: Color.fromARGB(255, 72, 60, 9).withOpacity(.8),
+//                           fontSize: 15,
+//                           fontWeight: FontWeight.bold)),
+//                 ),

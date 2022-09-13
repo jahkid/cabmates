@@ -1,38 +1,37 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class ProgressDialog extends StatelessWidget {
-  
-
   String? message;
   ProgressDialog({this.message});
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.lime,
+      backgroundColor: Colors.black54,
       child: Container(
         margin: EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          color: Colors.white70,
-          borderRadius: BorderRadius.circular(6)
-        ),
+        // decoration: BoxDecoration(
+        //   color: Colors.black54,
+        //   borderRadius: BorderRadius.circular(6),
+        // ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              SizedBox(width:6 ,),
+              const SizedBox(width: 6.0),
               CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.lime),   
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.amber),
               ),
-              SizedBox(width: 26,),
+              const SizedBox(width: 26.0),
               Text(
                 message!,
                 style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 12,
+                  color: Colors.white,
+                  fontSize: 14,
                 ),
-                )
+              ),
             ],
           ),
         ),
