@@ -87,12 +87,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(220, 0, 0, 0),
+          backgroundColor: Color.fromARGB(220, 24, 24, 24),
           automaticallyImplyLeading: false,
+          centerTitle: true,
           title: Padding(
             padding: const EdgeInsets.all(0),
             child: Image.asset("assets/app_logo.png",
-                height: 30, fit: BoxFit.cover),
+                height: 50, fit: BoxFit.cover),
           ),
         ),
         body: Container(
@@ -102,7 +103,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
             Color.fromARGB(255, 218, 167, 0),
-            Color.fromARGB(255, 222, 198, 94)
+            Color.fromARGB(255, 218, 160, 4)
           ])),
           child: SingleChildScrollView(
             child: Column(
@@ -111,7 +112,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   height: 50,
                 ),
                 Text(
-                  "Register as a Driver or Rider",
+                  "Register as a Driver",
                   style: TextStyle(
                     fontSize: 16,
                     color: Color.fromARGB(163, 9, 9, 9),
